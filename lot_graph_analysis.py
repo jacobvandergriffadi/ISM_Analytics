@@ -1,8 +1,11 @@
 # import module
-sudo apt-get install python3-pip
 import streamlit as st
-pip install pyodbc
-pip install networkx
+import pyodbc
+import pandas as pd
+import networkx as nx
+import matplotlib.pyplot as plt
+# Import date class from datetime module
+from datetime import date
 # Title
 st.title("Lot Tracker")
 
@@ -17,8 +20,7 @@ if(st.button('Submit')):
 def get_network(lot_id):
 
     lot_id = "'" + lot_id + "'"
-    import pyodbc
-    import pandas as pd
+   
     cnxn = pyodbc.connect("Driver={SQL Server Native Client 11.0};"
                           "Server=dbinvreconprd.ad.analog.com\internal;"
                           "Database=InvRecon;"
@@ -30,8 +32,7 @@ def get_network(lot_id):
     invrecon = pd.read_sql_query("SELECT * FROM utransactions WHERE TranCd = 'EOH' AND LotId =" +str(lot_id), cnxn)
 
 
-    # Import date class from datetime module
-    from datetime import date
+    
     
     invrecon['LotAge'] = pd.to_datetime(date.today()) - pd.to_datetime(invrecon['Age'], errors='coerce')
     invrecon['LotAgeDays'] = invrecon['LotAge'].astype(str).str.split(' ', expand=True).iloc[:,0]
@@ -115,9 +116,6 @@ def get_network(lot_id):
     title = -1
 
     for i in graphs:
-
-        import networkx as nx
-        import matplotlib.pyplot as plt
 
         G = nx.from_pandas_edgelist(df=i, source='source', target='target',edge_attr='weight', create_using=nx.MultiDiGraph())
         pos = nx.spiral_layout(G, dim=2, resolution=5, equidistant=True, scale = 5)
