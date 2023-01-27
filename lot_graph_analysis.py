@@ -1,6 +1,7 @@
 # import module
 import streamlit as st
- 
+pip install pyodbc
+pip install networkx
 # Title
 st.title("Lot Tracker")
 
