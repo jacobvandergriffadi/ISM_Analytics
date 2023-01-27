@@ -1,4 +1,5 @@
 # import module
+sudo apt-get install python3-pip
 import streamlit as st
 pip install pyodbc
 pip install networkx
