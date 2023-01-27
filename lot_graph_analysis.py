@@ -1,3 +1,17 @@
+# import module
+import streamlit as st
+ 
+# Title
+st.title("Lot Tracker")
+
+name = st.text_input("Enter Lot Id", "Type Here ...")
+ 
+# display the name when the submit button is clicked
+# .title() is used to get the input text string
+if(st.button('Submit')):
+    result = name.title()
+    st.success(result)
+
 def get_network(lot_id):
 
     lot_id = "'" + lot_id + "'"
@@ -119,4 +133,4 @@ def get_network(lot_id):
         plt.title(titles[title])
         plt.show()
 
-get_network(input("Enter Lot id"))
+get_network(result)
