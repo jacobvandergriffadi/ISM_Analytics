@@ -116,6 +116,7 @@ def get_network(lot_id):
     title = -1
 
     for i in graphs:
+        fig, ax = plt.subplots()
 
         G = nx.from_pandas_edgelist(df=i, source='source', target='target',edge_attr='weight', create_using=nx.MultiDiGraph())
         pos = nx.spiral_layout(G, dim=2, resolution=5, equidistant=True, scale = 5)
@@ -132,5 +133,11 @@ def get_network(lot_id):
         
         plt.title(titles[title])
         plt.show()
-
+        st.pyplot(fig)
+        
+        st.balloons()
 get_network(result)
+
+
+
+
